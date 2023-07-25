@@ -27,9 +27,9 @@ public class Main {
         random3.getMatrix().print();
         System.out.println(GL5.getName());
         random5.getMatrix().print();
+        System.out.println(dpGroup.getName());
+        System.out.println("No matrix: " + randomDP);
         System.out.println(GL3.getName());
         random3.getMatrix(groupRepresentation1X1).print();
-        System.out.println(dpGroup.getName());
-        System.out.println("N/A");
     }
 }
