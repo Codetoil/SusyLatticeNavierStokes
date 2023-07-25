@@ -1,5 +1,7 @@
 plugins {
-    id 'java'
+    id 'java-library'
+    id 'idea'
+    id 'maven-publish'
 }
 
 group = 'io.github.codetoil'
@@ -13,11 +15,11 @@ dependencies {
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
     implementation 'com.google.code.gson:gson:2.10.1'
-    implementation 'com.google.guava:guava:32.1.1-jre'
     implementation 'net.sf.jopt-simple:jopt-simple:5.0.4'
     implementation 'org.apache.logging.log4j:log4j-core:2.20.0'
     implementation 'org.apache.commons:commons-lang3:3.12.0'
-    implementation 'org.ejml:ejml-all:0.43'
+    api 'com.google.guava:guava:32.1.1-jre'
+    api 'org.ejml:ejml-all:0.43'
 }
 
 test {

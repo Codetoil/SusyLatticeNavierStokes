@@ -23,6 +23,9 @@ public class Main {
                 = GL3.new TensorProductRepresentation<
                 GroupRepresentation<GeneralLinear>,
                 GroupRepresentation<GeneralLinear>>(groupRepresentation1, groupRepresentation1);
+        GeneralLinear GL3C = Groups.getComplexGeneralLinearGroup(3);
+        GeneralLinear.GeneralLinearElement random3C = GL3C
+                .new GeneralLinearElement(SimpleMatrix.random_ZDRM(3, 3));
         System.out.println(GL3.getName());
         random3.getMatrix().print();
         System.out.println(GL5.getName());
@@ -31,5 +34,7 @@ public class Main {
         System.out.println("No matrix: " + randomDP);
         System.out.println(GL3.getName());
         random3.getMatrix(groupRepresentation1X1).print();
+        System.out.println(GL3C.getName());
+        random3C.getMatrix().print();
     }
 }

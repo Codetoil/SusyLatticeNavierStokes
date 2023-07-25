@@ -22,9 +22,10 @@ public abstract class Group<G extends Group<G>> {
         public final V groupRepresentationV;
 
         public TensorProductRepresentation(U groupRepresentationU, V groupRepresentationV) {
-            //noinspection unchecked
-            super((G) Group.this, Groups.getGeneralLinearGroup(groupRepresentationU.groupB.dimension *
-                    groupRepresentationV.groupB.dimension));
+            super(Group.this, Groups.getGeneralLinearGroup(
+                    ((GeneralLinear) groupRepresentationU.groupB).dimension *
+                            ((GeneralLinear) groupRepresentationV.groupB).dimension,
+                    groupRepresentationU.isComplex || groupRepresentationV.isComplex));
             this.groupRepresentationU = groupRepresentationU;
             this.groupRepresentationV = groupRepresentationV;
         }
@@ -32,7 +33,7 @@ public abstract class Group<G extends Group<G>> {
         @Override
         public GroupElement<GeneralLinear> apply(GroupElement<G> element) {
 
-            return this.groupB
+            return ((GeneralLinear) this.groupB)
                     .new GeneralLinearElement(
                             element.getMatrix(this.groupRepresentationU)
                                     .kron(element.getMatrix(this.groupRepresentationV)));

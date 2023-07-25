@@ -3,16 +3,21 @@ package io.github.codetoil.math.api.specific;
 import io.github.codetoil.math.api.general.Group;
 import io.github.codetoil.math.api.general.GroupElement;
 import io.github.codetoil.math.api.general.GroupRepresentation;
+import org.ejml.data.DMatrixRMaj;
+import org.ejml.data.ZMatrixRMaj;
 import org.ejml.simple.SimpleMatrix;
 
 public class GeneralLinear extends Group<GeneralLinear> {
     public final int dimension;
+    public final boolean isComplex;
     private final GroupElement<GeneralLinear> identity;
 
-    public GeneralLinear(int dimension) {
-        super("GL(" + dimension + ", R)");
+    public GeneralLinear(int dimension, boolean isComplex) {
+        super("GL(" + dimension + ", " + (isComplex ? "C" : "R") + ")");
+        this.isComplex = isComplex;
         this.dimension = dimension;
-        this.identity = new GeneralLinearElement(SimpleMatrix.identity(this.dimension));
+        this.identity = new GeneralLinearElement(SimpleMatrix.identity(this.dimension,
+                isComplex ? ZMatrixRMaj.class : DMatrixRMaj.class));
     }
 
     @Override
@@ -43,8 +48,9 @@ public class GeneralLinear extends Group<GeneralLinear> {
         }
 
         private boolean matchesConstraints(SimpleMatrix matrix) {
-            return (matrix.getNumCols() == GeneralLinear.this.dimension
-                    && matrix.getNumRows() == GeneralLinear.this.dimension);
+            return matrix.getNumCols() == GeneralLinear.this.dimension
+                    && matrix.getNumRows() == GeneralLinear.this.dimension
+                    && matrix.getType().isReal() != GeneralLinear.this.isComplex;
         }
 
         public SimpleMatrix getMatrix() {
