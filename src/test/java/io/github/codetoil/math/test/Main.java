@@ -3,6 +3,7 @@ package io.github.codetoil.math.test;
 
 import io.github.codetoil.math.api.general.DirectProductGroup;
 import io.github.codetoil.math.api.general.GroupRepresentation;
+import io.github.codetoil.math.api.registry.GroupRepresentations;
 import io.github.codetoil.math.api.registry.Groups;
 import io.github.codetoil.math.api.specific.GeneralLinear;
 import org.ejml.simple.SimpleMatrix;
@@ -18,7 +19,8 @@ public class Main {
         DirectProductGroup<GeneralLinear, GeneralLinear> dpGroup = new DirectProductGroup<>(GL3, GL5);
         DirectProductGroup<GeneralLinear, GeneralLinear>.DirectProductGroupElement randomDP = dpGroup
                 .new DirectProductGroupElement(random3, random5);
-        GroupRepresentation<GeneralLinear> groupRepresentation1 = GL3.new GeneralLinearRepresentation();
+        GroupRepresentation<GeneralLinear> groupRepresentation1 = GroupRepresentations
+                .getGeneralLinearRepresentation(GL3);
         GroupRepresentation<GeneralLinear> groupRepresentation1X1
                 = GL3.new TensorProductRepresentation<
                 GroupRepresentation<GeneralLinear>,
