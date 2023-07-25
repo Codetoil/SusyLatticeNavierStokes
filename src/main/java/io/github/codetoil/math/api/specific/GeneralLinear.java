@@ -43,14 +43,22 @@ public class GeneralLinear extends Group<GeneralLinear> {
 
         public GeneralLinearElement(SimpleMatrix matrix) {
             super(GeneralLinear.this);
-            if (!matchesConstraints(matrix)) throw new RuntimeException("Doesn't match matrix constraints, " + matrix);
+            matchesConstraints(matrix);
             this.matrix = matrix;
         }
 
-        private boolean matchesConstraints(SimpleMatrix matrix) {
-            return matrix.getNumCols() == GeneralLinear.this.dimension
-                    && matrix.getNumRows() == GeneralLinear.this.dimension
-                    && matrix.getType().isReal() != GeneralLinear.this.isComplex;
+        private void matchesConstraints(SimpleMatrix matrix) {
+            if (matrix.getNumCols() != GeneralLinear.this.dimension)
+                throw new RuntimeException("Wrong number of cols: Expected: " + GeneralLinear.this.dimension +
+                        " Actual: " + matrix.getNumCols());
+            if (matrix.getNumRows() != GeneralLinear.this.dimension)
+                throw new RuntimeException("Wrong number of rows: Expected: " + GeneralLinear.this.dimension +
+                        " Actual: " + matrix.getNumRows());
+            if (matrix.getType().isReal() == GeneralLinear.this.isComplex)
+                throw new RuntimeException("Wrong type: Expected: "
+                        + (GeneralLinear.this.isComplex ? "complex" : "real")
+                        + " Actual: "
+                        + (matrix.getType().isReal() ? "real" : "complex") );;
         }
 
         public SimpleMatrix getMatrix() {
